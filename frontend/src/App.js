@@ -19,10 +19,10 @@ const oidcConfig = {
     );
     window.location.hash = "";
   },
-  authority: "http://zitadel.default.35.204.218.48.sslip.io/", // replace with your instance
+  authority: "https://zitadel.default.35.204.218.48.sslip.io/", // replace with your instance
   clientId: "202861608328823347@conference",
   responseType: "code",
-  redirectUri: "https://3000-salaboy-frontend-98w2xjf23wy.ws-eu88.gitpod.io/",
+  redirectUri: "http://localhost:3000/",
   scope: "openid profile email",
 };
 
