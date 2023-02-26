@@ -2,17 +2,24 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-
+import AppContext from "./contexts/AppContext";
+import React, { useState } from 'react';
 import Home from "./pages/Home";
 
 
 function App() {
+  const [appStatus, setAppStatus] = useState(true);
   return (
-    <div className="App">
-       <Routes>
-              <Route element={<Home />} path="/" exact />
+    <AppContext.Provider value={{
+      appStatus: appStatus, 
+      setAppStatus: setAppStatus
+      }}>
+      <div className="App">
+        <Routes>
+          <Route element={<Home />} path="/" exact />
         </Routes>
-    </div>
+      </div>
+    </AppContext.Provider>
   );
 }
 
