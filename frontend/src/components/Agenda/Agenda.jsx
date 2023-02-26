@@ -4,7 +4,7 @@ import AppContext from "../../contexts/AppContext";
 import axios from 'axios'
 
 export default function Agenda(props) {
-    const { appStatus} = useContext(AppContext);
+    
     const [agendaItems, setAgendaItems] = useState('') 
     const {day, highlights} = props;
 
@@ -53,9 +53,25 @@ export default function Agenda(props) {
 
     return (
         <div className="Agenda">   
-            Agenda Component {appStatus.toString()}
+            
             Agenda Items: 
-            {agendaItems.toString}
+            {agendaItems && agendaItems.length > 0 && agendaItems.map((item, index) => (
+
+                <div key={item.title}> 
+                    name={item.title}
+                    day={item.day}
+                    time={item.time}
+                    key={index}
+                    position={index}
+                    description={item.description}
+                    author={item.author}
+                    authorImage={item.authorImage}
+                    <br />
+                    <br /> 
+                </div>
+
+
+                ))}
         </div>
     )
 }

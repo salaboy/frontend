@@ -5,6 +5,7 @@ import {
 import AppContext from "./contexts/AppContext";
 import React, { useState } from 'react';
 import Home from "./pages/Home";
+import Nav from "./components/Nav/Nav";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       setAppStatus: setAppStatus
       }}>
       <div className="App">
+        <Nav /> 
         <Routes>
           <Route element={<Home />} path="/" exact />
         </Routes>
