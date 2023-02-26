@@ -22,7 +22,7 @@ const oidcConfig = {
   authority: "https://conference-4t3at3.zitadel.cloud", // replace with your instance
   clientId: "202884993150681345@conference",
   responseType: "code",
-  redirectUri: "https://3000-salaboy-frontend-212yt0q95al.ws-eu88.gitpod.io",
+  redirectUri: "http://localhost:3000",
   scope: "openid profile email",
 };
 
