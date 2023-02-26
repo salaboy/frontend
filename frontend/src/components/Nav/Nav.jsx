@@ -1,13 +1,25 @@
 import { Link } from "react-router-dom";
 import "./Nav.scss";
+import AppContext from "../../contexts/AppContext";
+import React, { useContext } from "react";
 
 
 
 export default function Nav() {
-
+    const { backend} = useContext(AppContext);
     return (
         <nav className="Nav">   
-            <Link to={"/"}>Home</Link>
+            {!backend && (
+                <>
+                 <Link to={"/"}>Home</Link>
+                </>
+            )}
+            {backend && (
+                <>
+                    <Link to={"/"}>Back to home</Link>
+                    <Link to={"/backend/proposals"}>Proposals</Link>
+                </>
+            )}
         </nav>
     )
 }

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Agenda.scss";
-import AppContext from "../../contexts/AppContext";
+
 import axios from 'axios'
 
 export default function Agenda(props) {
@@ -31,7 +31,7 @@ export default function Agenda(props) {
         } else if (highlights) {
             dayString = 'highlights'
         }
-        console.log("Querying with: " + "/agenda/" + dayString)
+        console.log("Querying with: /agenda/" + dayString)
         axios({
             "method": "GET",
             "url": "/api/agenda/" + dayString, // This is going throw the proxy in package.json

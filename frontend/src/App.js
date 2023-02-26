@@ -10,10 +10,13 @@ import Nav from "./components/Nav/Nav";
 
 function App() {
   const [appStatus, setAppStatus] = useState(true);
+  const [backend, setBackend] = useState(false);
   return (
     <AppContext.Provider value={{
-      appStatus: appStatus, 
-      setAppStatus: setAppStatus
+        appStatus: appStatus, 
+        setAppStatus: setAppStatus,
+        backend: backend,
+        setBackend: setBackend
       }}>
       <div className="App">
         <Nav /> 
