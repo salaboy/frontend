@@ -8,6 +8,7 @@ export default function Agenda(props) {
     const [agendaItems, setAgendaItems] = useState('') 
     const {day, highlights} = props;
 
+    
 
     const mockAgendaItemsMonday = [{
         "title": "Cached Entry",

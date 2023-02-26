@@ -1,9 +1,14 @@
 
 import "./Home.scss";
 import Agenda from "../components/Agenda/Agenda";
+import React, { useContext } from "react";
+import AppContext from "../contexts/AppContext";
 
 function Home() {
 
+  const { backend, setBackend } = useContext(AppContext);
+
+  setBackend(false);
 
   return (
     <div 
