@@ -1,53 +1,75 @@
-import {
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppContext from "./contexts/AppContext";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Home from "./pages/Home";
 import BackendHome from "./pages/BackendHome";
 import Nav from "./components/Nav/Nav";
-import { AuthProvider } from "oidc-react";
+import { UserManager, WebStorageStateStore } from "oidc-client-ts";
 
-const oidcConfig = {
-  onSignIn: async (response: any) => {
-    alert(
-      "You logged in :" +
-        response.profile.given_name +
-        " " +
-        response.profile.family_name
-    );
-    window.location.hash = "";
-  },
-  authority: "https://conference-4t3at3.zitadel.cloud", // replace with your instance
-  clientId: "202884993150681345@conference",
-  responseType: "code",
-  redirectUri: "http://localhost:3000",
-  scope: "openid profile email",
-};
-
+import authConfig from "./authConfig";
 
 function App() {
   const [appStatus, setAppStatus] = useState(true);
-  const [backend, setBackend] = useState(false);
+  
+  const userManager = new UserManager({
+    userStore: new WebStorageStateStore({ store: window.localStorage }),
+    ...authConfig,
+  });
+
+  function authorize() {
+    userManager.signinRedirect({ state: "a2123a67ff11413fa19217a9ea0fbad5" });
+  }
+
+  function clearAuth() {
+    userManager.signoutRedirect();
+  }
+
+  const [authenticated, setAuthenticated] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    userManager.getUser().then((user) => {
+      if (user) {
+        setAuthenticated(true);
+      } else {
+        setAuthenticated(false);
+      }
+    });
+  }, [userManager]);
+
   return (
     <AppContext.Provider value={{
         appStatus: appStatus, 
         setAppStatus: setAppStatus,
-        backend: backend,
-        setBackend: setBackend
       }}>
-        <AuthProvider {...oidcConfig}>
-      <div className="App">
-        <Nav /> 
+        <div className="App"><Nav /> 
+        
+      
+        
         <Routes>
-          <Route element={<Home />} path="/" exact />
-          <Route element={<BackendHome />} path="/backend/" exact />
+          <Route
+            path="/"
+            element={<Home auth={authenticated} handleLogin={authorize} />}
+          />
+          <Route
+          path="/backoffice"
+          element={
+            <BackendHome
+              auth={authenticated}
+              setAuth={setAuthenticated}
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
+              handleLogout={clearAuth}
+              userManager={userManager}
+            />
+          }
+        />
+          
         </Routes>
-      </div>
-      </AuthProvider>
-    </AppContext.Provider>
+      
+        </div>
     
+      </AppContext.Provider>
   );
 }
 

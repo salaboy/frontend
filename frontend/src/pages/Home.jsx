@@ -3,13 +3,11 @@ import "./Home.scss";
 import Agenda from "../components/Agenda/Agenda";
 import React, { useContext } from "react";
 import AppContext from "../contexts/AppContext";
+import { Navigate } from "react-router-dom";
 
-function Home() {
+const Home = ({ auth, handleLogin, userManager }) => {
 
-  const { backend, setBackend } = useContext(AppContext);
-
-  setBackend(false);
-
+  
   return (
     <div 
       className="page home" 
@@ -19,6 +17,23 @@ function Home() {
         <div>
             <Agenda />  
         </div>
+        <div>
+      {auth === null && <div>Loading...</div>}
+      {auth === false && (
+        <div>
+          <h1>Welcome!</h1>
+          <button
+            onClick={() => {
+              // Perform the authorization request, including the code challenge
+              handleLogin();
+            }}
+          >
+            Please log in.
+          </button>
+        </div>
+      )}
+      {auth && <Navigate to="/backoffice" />}
+    </div>
     </div>
   )
 }
