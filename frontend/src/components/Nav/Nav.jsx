@@ -5,23 +5,29 @@ import React, { useContext } from "react";
 
 
 
-export default function Nav() {
-    const { backend } = useContext(AppContext);
+const Nav = ({ auth, handleLogin, handleLogout }) => {
     return (
         <nav className="Nav">   
-            {!backend && (
+            {(!auth || auth === null) && (
                 <>
-                 <Link to={"/"}>Home</Link>
-                 <Link to={"/backend/"}>Go to Backend</Link>
+                 <Link to={"/"}>Home</Link> - <button
+            onClick={() => {
+              // Perform the authorization request, including the code challenge
+              handleLogin();
+            }}
+          >
+            Log in
+          </button>
                 </>
             )}
-            {backend && (
+            {auth && (
                 <>
-                    <Link to={"/"}>Go Home</Link>
-                    <Link to={"/backend/"}>Back to home</Link>
-                    <Link to={"/backend/proposals"}>Proposals</Link>
+                    <Link to={"/"}>Home</Link> - 
+                    <Link to={"/backoffice/proposals"}>Approve Proposals</Link> - <button onClick={handleLogout}>Log out</button>
                 </>
             )}
         </nav>
     )
 }
+
+export default Nav;

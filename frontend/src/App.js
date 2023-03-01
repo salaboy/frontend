@@ -42,7 +42,7 @@ function App() {
         appStatus: appStatus, 
         setAppStatus: setAppStatus,
       }}>
-        <div className="App"><Nav /> 
+        <div className="App"><Nav auth={authenticated} handleLogin={authorize} handleLogout={clearAuth} /> 
         
       
         

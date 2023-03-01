@@ -55,9 +55,10 @@ export default function Agenda(props) {
     return (
         <div className="Agenda">   
             
-            Agenda Items: 
+            Agenda Items: <br/>
+            
             {agendaItems && agendaItems.length > 0 && agendaItems.map((item, index) => (
-
+                
                 <div key={item.title}> 
                     name={item.title}
                     day={item.day}
@@ -70,7 +71,7 @@ export default function Agenda(props) {
                     <br />
                     <br /> 
                 </div>
-
+            
 
                 ))}
         </div>
